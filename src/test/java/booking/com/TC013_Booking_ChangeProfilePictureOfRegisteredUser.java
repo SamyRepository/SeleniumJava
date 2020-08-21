@@ -22,6 +22,6 @@ public class TC013_Booking_ChangeProfilePictureOfRegisteredUser extends TestBase
         getBookingHomepage().clickOnSignIn().setUsername2().setSignInPassword2().selectUserIcon()
                 .clickOnDashBoardLinkToGoToDashboardPage().clickEditYourProfileToGoToSettingsPage()
                 .changeProfilePicture().uploadNewProfilePic().saveProfilePic();
-
+//Added comment for git
     }
 }
