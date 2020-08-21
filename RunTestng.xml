@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Digital Communication POC on : Chrome" preserve-order="true">
+
+    <listeners>
+        <listener class-name="utils.TestNGListenerAdapter"/>
+    </listeners>
+
+    <test name="Chrome:suite1_test1_results" preserve-order="true">
+        <parameter name="browserType" value="chrome"/>
+<!--        <parameter name="appURL" value="http://www.ksrtc.in"/>-->
+        <parameter name="appURL" value="https://www.booking.com"/>
+
+        <classes>
+            <class name="booking.com.TC002_Booking_ToVerifyBanner"/>
+            <!--<class name="TC001_BookMyShow_HomePage_Operations"/>
+            <class name="TC001_KSRTC_SignIn"/>
+            <class name="TC002_KSRTC_SignInWithoutValidCredentials"/>
+            <class name="TC003_KSRTC_VerifyMenuAvailableForRegisteredUser"/>
+            <class name="TC004_KSRTC_VerifyAllConnectedApplications"/>
+            <class name="TC005_KSRTC_VerifyTableOfScreenReaderAccess"/>
+            <class name="TC001_MyPorsche_LoginPage_VerifyElements"/>
+            <class name="TC002_MyPorsche_LoginPage_LoginToPorscheInBoxWithInvalidCredential"/>
+            <class name="TC003_MyPorsche_LoginPage_LoginToPorscheInBox"/>
+            <class name="TC004_MyPorsche_MessagingPage_VerifyAllFieldsAreMandatoryToSendMessage"/>-->
+        </classes>
+    </test>
+
+</suite> <!-- Default Suite -->
+
+
+
