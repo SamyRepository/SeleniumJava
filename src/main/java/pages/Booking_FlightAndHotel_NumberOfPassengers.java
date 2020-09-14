@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class Booking_FlightAndHotel_NumberOfPassengers extends PageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(Booking_FlightBookingPage.class);
 
-    @FindBy(css = ".guestsText.lmn-sw-responsive-form-field.lmn-sw-tooltip-responsive__text")
+    @FindBy(css = "guestsText lmn-sw-responsive-form-field lmn-sw-tooltip-responsive__text")
     private WebElement NumberOfPassengersTab;
 
     @FindBy(xpath = "//div[@class='guestsSelectionControls' and @data-type='adults']/div/span[1]")
