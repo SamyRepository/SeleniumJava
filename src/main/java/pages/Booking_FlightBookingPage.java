@@ -29,11 +29,9 @@ public class Booking_FlightBookingPage extends PageBase {
     @FindBy(xpath = "//button[@class='css-bzt01u wide']")
     private WebElement SearchButton;
 
-
     public Booking_FlightBookingPage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
         PageFactory.initElements(driver, this);
-
     }
 
     @Override
@@ -43,7 +41,6 @@ public class Booking_FlightBookingPage extends PageBase {
         } catch (Exception e) {
             return false;
         }
-
     }
 
     private boolean waitUntilPageLoaded() {
