@@ -24,7 +24,6 @@ public class Booking_CalenderPage extends PageBase {
     @FindBy(xpath = "//div[@class='css-1ws0i0d']")
     private WebElement DayHeader;
 
-
     Booking_CalenderPage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
         WebElement pageHeader = (new WebDriverWait(driver, 5000))
@@ -32,19 +31,15 @@ public class Booking_CalenderPage extends PageBase {
         if (pageHeader.isDisplayed()) {
             System.out.println("Page is loaded");
         } else {
-            System.out.println("Page is mot loaded");
+            System.out.println("Page is not loaded");
         }
-
         PageFactory.initElements(driver, this);
     }
-
     public Booking_NumberOfPassengers selectCurrentDate() throws InterruptedException {
         Thread.sleep(3000);
-
         CurrentDate.click();
         return new Booking_NumberOfPassengers(driver, EXTENT_TEST_LOGGER, helper);
     }
-
     @Override
     public boolean verifyPageIsLoaded() throws Exception {
         try {
