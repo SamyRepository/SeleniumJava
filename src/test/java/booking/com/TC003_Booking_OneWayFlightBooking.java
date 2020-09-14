@@ -25,17 +25,16 @@ public class TC003_Booking_OneWayFlightBooking extends TestBase {
 
         try {
             CreateExtentReport(this.getClass().getName(), "Booking one-way journey");
-            getBookingHomepage().clickOnFlightLinkGoToFlightBookingPage().selectOneWayJourney().enterSourceOfJourney().
-                    enterDestinationOfJourney().selectCurrentDate().selectNoOfPassengers().setAdultPassenger()
-                    .setChildPassengers().setChildAge().clickOnSearchButton();
+            getBookingHomepage().clickOnFlightLinkGoToFlightBookingPage().selectOneWayJourney().enterSourceOfJourney()
+                    .enterDestinationOfJourney().selectCurrentDate().selectNoOfPassengers().setNumberOfAdultPassenger().clickOnSearchButton();
 
+            EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Result page is displayed ", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         } catch (Exception exc) {
             PostConditionWithQuitDriver();
         } finally {
             softly.assertAll();
         }
     }
-
     @AfterClass
     void tearDown() {
         try {
