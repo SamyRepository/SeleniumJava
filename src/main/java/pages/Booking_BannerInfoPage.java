@@ -15,21 +15,18 @@ import java.util.List;
 public class Booking_BannerInfoPage extends PageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(Booking_BannerInfoPage.class);
 
-    //First country
-
     @FindBy(xpath = "//ul[@class='bui-accordion bui-u-bleed@small']/li")
-    private List <WebElement> CountryRestrictionAdvisoryInfo;
+    private List<WebElement> CountryRestrictionAdvisoryInfo;
 
     @FindBy(xpath = "//a[@class='bui-link bui-link--primary close_warning']")
-            private WebElement CloseWarning;
+    private WebElement CloseWarning;
 
-    @FindBy(linkText=" Help Centre")
-            private WebElement HelpCentreLink;
+    @FindBy(linkText = " Help Centre")
+    private WebElement HelpCentreLink;
 
     Booking_BannerInfoPage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
         PageFactory.initElements(driver, this);
-
     }
 
     @Override
@@ -46,15 +43,32 @@ public class Booking_BannerInfoPage extends PageBase {
     }
 
     public List<String> getCountryRestrictionAdvisoryInfo() {
-        if (helper.isDisplayed(CloseWarning)){
+        if (helper.isDisplayed(CloseWarning)) {
             CloseWarning.click();
         }
         return helper.getElementsTextValues(CountryRestrictionAdvisoryInfo);
     }
 
-    public void clickOnHelpCentreLink(){
+    public void clickOnHelpCentreLink() {
         HelpCentreLink.click();
     }
 
+    public enum Information {
 
+        SUPPORTED_LANGUAGES_IN_GERMANY("[Most often used by people in Germany\n" + "Deutsch\n" + "English (UK)\n" + "English (US)\n" + "简体中文\n" + "Русский\n" + "Español]"),
+        BANNER_MESSAGE("Please check for travel restrictions. Travel may be permitted only for certain purposes and in particular, touristic travel may not be allowed.");
+
+        private final String label;
+
+        Information(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+    }
 }
+
+
+
