@@ -59,8 +59,6 @@ public class Booking_FlightAndHotelPage extends PageBase {
         Source.click();
         String source="FRA";
         Source.sendKeys(source);
-        /*driver.findElement(By.xpath("//*[contains(Text(),'"+source+"')]")).click();
-        Source.sendKeys(Keys.TAB);*/
         driver.findElement(By.xpath("//div[@data-value='FRA' and @class='optionGroup-select-item']")).click();
         Source.sendKeys(Keys.TAB);
         return this;
@@ -71,7 +69,6 @@ public class Booking_FlightAndHotelPage extends PageBase {
         String destination="Mumbai, Indien";
         Destination.sendKeys(destination);
         Destination.sendKeys(Keys.TAB);
-//        driver.findElement(By.xpath("//*[contains(Test(),'"+Destination+"')]")).click();
         return new Booking_FlightAndHotel_CalenderPage(driver,EXTENT_TEST_LOGGER,helper);
     }
 
@@ -89,6 +86,4 @@ public class Booking_FlightAndHotelPage extends PageBase {
         SearchButton.click();
         return new Booking_FlightAndHotelSearchResult(driver,EXTENT_TEST_LOGGER,helper);
     }
-
-
 }
