@@ -11,7 +11,6 @@ import utils.Report;
 public class TC004_Booking_FlightAndHotelBooking extends TestBase {
     private SoftAssertions softly= new SoftAssertions();
 
-
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("To verify flight and Hotel booking")
@@ -20,11 +19,10 @@ public class TC004_Booking_FlightAndHotelBooking extends TestBase {
 
     public void verifyFlightAndHotelBooking() {
         EXTENT_REPORTS = Report.Instance(this.getClass().getName());
-
         try {
             CreateExtentReport(this.getClass().getName(), "Booking Flight and Hotel together");
-            getBookingHomepage().clickOnFlightAndHotelLink().setSource().setDestination().setDepartureDate().
-                     setReturnDate().setNumberOfPassengers().increaseNumberOfAdults().increaseNumberOfChildren().increaseNumberOfRooms()
+            getBookingHomepage().clickOnFlightAndHotelLink().setSource().setDestination().setDepartureDate()
+                    .setReturnDate().setNumberOfPassengers().increaseNumberOfAdults().increaseNumberOfChildren().increaseNumberOfRooms()
                     .setChildAgeFirstRoom().setChildAgeSecondRoom().selectBusinessClass().clickOnSearchButton();
         } catch (Exception exc) {
             PostConditionWithQuitDriver();
@@ -41,6 +39,5 @@ public class TC004_Booking_FlightAndHotelBooking extends TestBase {
             EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
             PostConditionWithQuitDriver();
         }
-
     }
 }
