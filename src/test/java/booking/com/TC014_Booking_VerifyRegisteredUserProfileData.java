@@ -24,8 +24,8 @@ public class TC014_Booking_VerifyRegisteredUserProfileData extends TestBase {
         TestBase.EXTENT_REPORTS = Report.Instance("Booking website");
         try {
             TestBase.CreateExtentReport(this.getClass().getName(), "Verify details of registered user profile");
-            booking_settingsPage = getBookingHomepage().clickOnSignIn().setUsername2().setSignInPassword2().selectUserIcon()
-                    .clickOnDashBoardLinkToGoToDashboardPage().clickEditYourProfileToGoToSettingsPage();
+            booking_settingsPage = getBookingHomepage().clickOnSignIn().setUsername().setSignInPassword().selectUserIcon()
+                                  .clickOnDashBoardLinkToGoToDashboardPage().clickEditYourProfileToGoToSettingsPage();
 
             String RegisteredUserTitle = booking_settingsPage.getRegisteredUserTitle();
             System.out.println(RegisteredUserTitle);
@@ -52,7 +52,6 @@ public class TC014_Booking_VerifyRegisteredUserProfileData extends TestBase {
             softly.assertThat(RegisteredUserPhone.equals(Booking_SettingsPage.RegisteredUserProfileDetails.PHONE.getLabel()));
             TestBase.EXTENT_TEST_LOGGER.log(LogStatus.PASS, "Phone of the registered user: " + RegisteredUserPhone);
 
-
         } catch (Exception exc) {
             TestBase.EXTENT_TEST_LOGGER.log(LogStatus.ERROR, exc.getStackTrace().toString(), TestBase.EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(TestBase.driver)));
         }
@@ -67,9 +66,7 @@ public class TC014_Booking_VerifyRegisteredUserProfileData extends TestBase {
             TestBase.EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), TestBase.EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(TestBase.driver)));
             PostConditionWithQuitDriver();
         }
-
     }
-
 }
 
 
