@@ -45,7 +45,7 @@ public class Booking_Homepage extends PageBase {
     @FindBy(xpath = "//*[contains(text(), 'Register')]")
     private WebElement RegisterButton;
 
-    @FindBy(css = ".user_avatar.user_avatar--circle.user_avatar--normalised.user_avatar--initial.ge-no-yellow-img_border ")
+    @FindBy(css = ".user_avatar.user_avatar--circle.user_avatar--normalised.user_avatar--initial.ge-no-yellow-img_border")
     private WebElement UserIcon;
 
     @FindBy(xpath = "(//div[@class='sign_in_wrapper'])[2]")
@@ -101,11 +101,13 @@ public class Booking_Homepage extends PageBase {
 
     public Booking_FlightBookingPage clickOnFlightLinkGoToFlightBookingPage() {
         FlightLink.click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Flight link on Booking homepage is clicked: ", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         return new Booking_FlightBookingPage(driver, EXTENT_TEST_LOGGER, helper);
     }
 
     public Booking_FlightAndHotelPage clickOnFlightAndHotelLink() {
         FlightAndHotelLink.click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Flight+Hotel link on Booking homepage is clicked: ", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         return new Booking_FlightAndHotelPage(driver, EXTENT_TEST_LOGGER, helper);
     }
 
