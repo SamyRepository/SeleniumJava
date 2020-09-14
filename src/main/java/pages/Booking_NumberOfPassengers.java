@@ -13,23 +13,23 @@ import org.slf4j.LoggerFactory;
 public class Booking_NumberOfPassengers extends PageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(Booking_Homepage.class);
 
-    @FindBy(xpath = "//input[@class='css-mbm5ok-SearchboxInput' and @value='1 adult']")
+    @FindBy(xpath = "//input[@class='css-7b3jr6-SearchboxInput' and @value='1 adult']")
     private WebElement NoOfPassengersTab;
+
     @FindBy(xpath = "//button[@class='css-bzt01u wide']")
     private WebElement SearchButton;
 
-    @FindBy(xpath = "//div[@class='css-qx6f9e']/button[2]")
-    private WebElement AdultPassenger;
+    @FindBy(xpath = "(//div[@class='css-qx6f9e']/button)[2]")
+    private WebElement IncreaseNumberOfAdultPassenger;
 
-    @FindBy(xpath = "(//button[@class='css-1vzgvp0'])[2]")
-    private WebElement ChildPassenger;
+    @FindBy(xpath = "((//button[@class='css-1vzgvp0'])[2]")
+    private WebElement IncreaseNumberOfChildPassenger;
 
     @FindBy(xpath = "//button[@class='css-bzt01u']")
     private WebElement DoneNoOfPassengers;
 
-    @FindBy(css = ".css-glra3l")
+    @FindBy(xpath = "((//select[@class='css-pa74wc'])[2]")
     private WebElement ChildAgeTab;
-
 
     Booking_NumberOfPassengers(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
@@ -54,39 +54,26 @@ public class Booking_NumberOfPassengers extends PageBase {
         return this;
     }
 
-    public Booking_NumberOfPassengers setAdultPassenger() {
-        AdultPassenger.click();
+    public Booking_NumberOfPassengers setNumberOfAdultPassenger() {
+        IncreaseNumberOfAdultPassenger.click();
         return this;
     }
 
-    public Booking_NumberOfPassengers setChildPassengers() {
-        ChildPassenger.click();
+    public Booking_NumberOfPassengers setNumberOfChildPassengers() {
+        IncreaseNumberOfChildPassenger.click();
         return this;
     }
 
-    public Booking_FlightBookingPage setChildAge() {
+    public Booking_NumberOfPassengers setChildAge() {
         ChildAgeTab.click();
         driver.findElement(By.xpath("//select[@class='css-pa74wc']/option[11]")).click();
         //above is dynamic
         DoneNoOfPassengers.click();
-        return new Booking_FlightBookingPage(driver,EXTENT_TEST_LOGGER,helper);
+        return this;
     }
 
-    public enum NumberOfPassengers {
-
-        BOOKING_ADULT("2"),
-        BOOKING_CHILD("1"),
-        BOOKING_CHILD_AGE("5");
-
-        private final String label;
-
-        NumberOfPassengers(String label) {
-            this.label = label;
-        }
-
-        public String getLabel() {
-            return label;
-        }
+    public Booking_OneWayBookingResultPage clickOnSearchButton(){
+        SearchButton.click();
+        return new Booking_OneWayBookingResultPage(driver,EXTENT_TEST_LOGGER,helper);
     }
-
 }
