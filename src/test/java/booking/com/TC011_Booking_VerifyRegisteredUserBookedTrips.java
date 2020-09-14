@@ -20,16 +20,16 @@ public class TC011_Booking_VerifyRegisteredUserBookedTrips extends TestBase {
     @Step("Start TC011_Booking_VerifyRegisteredUserBookedTrips")
 
     public void getBookedTripsForRegisteredUser() {
-        TestBase.EXTENT_REPORTS = Report.Instance("Booking Website Registered User");
+        EXTENT_REPORTS = Report.Instance(this.getClass().getName());
         try {
-            List<String> allBookedTripsList = getBookingHomepage().clickOnSignIn().setUsername2().setSignInPassword2().
-                    selectUserIcon().clickOnBookingLinkOnRegisteredUserIcon().getBookedTripsDetail();
+            CreateExtentReport(this.getClass().getName(), "Verify all hotels booked in the year 2012");
+            List<String> allBookedTripsList = getBookingHomepage().clickOnSignIn().setUsername().setSignInPassword().selectUserIcon().clickOnBookingLinkOnRegisteredUserIcon().getBookedTripsDetail();
             System.out.println("All booked hotels for the registered user are:\n" + allBookedTripsList);
-
             for (int i = 0; i < allBookedTripsList.size(); i++) {
                 String individualTripDetailIn2012 = allBookedTripsList.get(i);
                 if (individualTripDetailIn2012.contains("2012"))
                     System.out.println(individualTripDetailIn2012);
+                EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Booked hotel is 2012: " + individualTripDetailIn2012);
             }
         } catch (Exception exc) {
             PostConditionWithQuitDriver();
@@ -37,7 +37,6 @@ public class TC011_Booking_VerifyRegisteredUserBookedTrips extends TestBase {
             softly.assertAll();
         }
     }
-
     @AfterClass
     void tearDown() {
         try {
