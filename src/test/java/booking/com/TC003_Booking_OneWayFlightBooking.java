@@ -13,7 +13,6 @@ public class TC003_Booking_OneWayFlightBooking extends TestBase {
     private SoftAssertions softly = new SoftAssertions();
     private static Booking_FlightBookingPage booking_flightBookingPage;
 
-
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("To verify one-way flight booking")
@@ -27,7 +26,6 @@ public class TC003_Booking_OneWayFlightBooking extends TestBase {
             CreateExtentReport(this.getClass().getName(), "Booking one-way journey");
             getBookingHomepage().clickOnFlightLinkGoToFlightBookingPage().selectOneWayJourney().enterSourceOfJourney()
                     .enterDestinationOfJourney().selectCurrentDate().selectNoOfPassengers().setNumberOfAdultPassenger().clickOnSearchButton();
-
             EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Result page is displayed ", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         } catch (Exception exc) {
             PostConditionWithQuitDriver();
@@ -44,6 +42,5 @@ public class TC003_Booking_OneWayFlightBooking extends TestBase {
             EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
             PostConditionWithQuitDriver();
         }
-
     }
 }
