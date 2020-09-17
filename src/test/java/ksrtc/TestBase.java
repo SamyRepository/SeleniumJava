@@ -37,6 +37,7 @@ public class TestBase {
     public static Booking_Homepage booking_homepage;
     public static String baseWindowHandle;
     public static KSRTC_LoginPage ksrtc_loginPage;
+    public static HM_HomePage hm_homePage;
     public static SessionId session_id = null;
     private static final Logger LOGGER = LogManager.getLogger(TestBase.class);
 
@@ -105,7 +106,7 @@ public class TestBase {
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             LoggingPreferences logPrefs = new LoggingPreferences();
             capabilities.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
-             driver = new ChromeDriver(capabilities);
+            driver = new ChromeDriver(capabilities);
             LOGGER.info("Opening chrome..");
 
             driver.manage().window().maximize();
@@ -113,9 +114,9 @@ public class TestBase {
             driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
             driver.navigate().to(appURL);
             LOGGER.info("open Url ...");
-           // return driver;
-        }catch(SessionNotCreatedException  e){
-            System.out.println("Session is not created"+e);
+            // return driver;
+        } catch (SessionNotCreatedException e) {
+            System.out.println("Session is not created" + e);
         }
         return driver;
     }
@@ -143,7 +144,7 @@ public class TestBase {
 
     public static void CreateExtentReport(String TestCaseName, String TestCaseDescription) {
         EXTENT_REPORTS = Report.Instance(TestCaseName);
-       EXTENT_TEST_LOGGER = EXTENT_REPORTS.startTest(TestCaseName, TestCaseDescription);
+        EXTENT_TEST_LOGGER = EXTENT_REPORTS.startTest(TestCaseName, TestCaseDescription);
     }
 
 
@@ -184,14 +185,19 @@ public class TestBase {
         return ksrtc_homePage;
     }
 
-    protected Booking_Homepage getBookingHomepage(){
+    protected Booking_Homepage getBookingHomepage() {
         setBookingHomePage();
         return booking_homepage;
     }
 
-    protected BookMyShow_HomePage getBookMyShowLaunchPage(){
+    protected BookMyShow_HomePage getBookMyShowLaunchPage() {
         setBookMyShowHomePage();
         return bookMyShow_homePage;
+    }
+
+    protected HM_HomePage getHandMHomePage() {
+        setHandMHomePage();
+        return hm_homePage;
     }
 
     public KSRTC_HomePage switchToHomePageAfterClosingCurrentWindow() {
@@ -201,20 +207,19 @@ public class TestBase {
     }
 
     public void setKSRTCHomePage() {
-
         ksrtc_homePage = new KSRTC_HomePage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
-
     }
 
-    public void setBookMyShowHomePage(){
+    public void setBookMyShowHomePage() {
         bookMyShow_homePage = new BookMyShow_HomePage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
-
-
     }
 
-    public void setBookingHomePage(){
+    public void setBookingHomePage() {
         booking_homepage = new Booking_Homepage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
+    }
 
+    public void setHandMHomePage() {
+        hm_homePage = new HM_HomePage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
     }
 
 

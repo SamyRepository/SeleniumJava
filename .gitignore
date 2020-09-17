@@ -8,3 +8,10 @@ git stagit /src/main/resources/Anand2.JPG
 /src/main/resources/Anand2.JPG
 /src/test/java/temp/
 /target/
+src/main/java/config/
+src/main/java/pages/HM_FavouritePage.java
+src/main/java/pages/HM_SignInPage.java
+src/main/java/pages/HM_WomenFashionMenuList.java
+src/main/java/pages/HM_WomenJacketFashionPage.java
+src/main/resources/chromedriver-82.exe
+src/test/java/hm/

@@ -8,21 +8,24 @@
 
     <test name="Chrome:suite1_test1_results" preserve-order="true">
         <parameter name="browserType" value="chrome"/>
-<!--        <parameter name="appURL" value="http://www.ksrtc.in"/>-->
+        <!--        <parameter name="appURL" value="http://www.ksrtc.in"/>-->
         <parameter name="appURL" value="https://www.booking.com"/>
+        <!--        <parameter name="appURL" value="https://www2.hm.com/en_in/index.html"/>-->
 
         <classes>
+            <class name="booking.com.TC001_Booking_AllSupportedLanguagesByGermany"/>
             <class name="booking.com.TC002_Booking_ToVerifyBanner"/>
-            <!--<class name="TC001_BookMyShow_HomePage_Operations"/>
-            <class name="TC001_KSRTC_SignIn"/>
-            <class name="TC002_KSRTC_SignInWithoutValidCredentials"/>
-            <class name="TC003_KSRTC_VerifyMenuAvailableForRegisteredUser"/>
-            <class name="TC004_KSRTC_VerifyAllConnectedApplications"/>
-            <class name="TC005_KSRTC_VerifyTableOfScreenReaderAccess"/>
-            <class name="TC001_MyPorsche_LoginPage_VerifyElements"/>
-            <class name="TC002_MyPorsche_LoginPage_LoginToPorscheInBoxWithInvalidCredential"/>
-            <class name="TC003_MyPorsche_LoginPage_LoginToPorscheInBox"/>
-            <class name="TC004_MyPorsche_MessagingPage_VerifyAllFieldsAreMandatoryToSendMessage"/>-->
+            <class name="booking.com.TC003_Booking_OneWayFlightBooking"/>
+            <class name="booking.com.TC005_Booking_Verify_Crossbar_Products"/>
+            <class name="booking.com.TC006_Booking_Verify_TopHeader"/>
+            <class name="booking.com.TC007_Booking_Verify_RegisteredUserIcon"/>
+            <class name="booking.com.TC008_Booking_VerifyFooter_DestinationWeLove"/>
+            <class name="booking.com.TC009_Booking_VerifyFooterTopMenu"/>
+            <class name="booking.com.TC010_Booking_VerifyFooterNavigationLinks"/>
+            <class name="booking.com.TC011_Booking_VerifyRegisteredUserBookedTrips"/>
+            <class name="booking.com.TC012_Booking_RebookAHotelForRegisteredUser"/>
+            <class name="booking.com.TC013_Booking_ChangeProfilePictureOfRegisteredUser"/>
+            <class name="booking.com.TC014_Booking_VerifyRegisteredUserProfileData"/>
         </classes>
     </test>
 
