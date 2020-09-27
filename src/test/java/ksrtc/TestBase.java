@@ -38,6 +38,7 @@ public class TestBase {
     public static String baseWindowHandle;
     public static KSRTC_LoginPage ksrtc_loginPage;
     public static SessionId session_id = null;
+    public  static String  Url;
     private static final Logger LOGGER = LogManager.getLogger(TestBase.class);
 
 
@@ -50,6 +51,7 @@ public class TestBase {
 
     @Step("Select driver to run")
     private RemoteWebDriver setDriver(String browserType, String appURL) throws IOException {
+        Url=appURL;
         switch (browserType) {
             case "chrome":
                 driver = initChromeDriver(appURL);
@@ -236,5 +238,7 @@ public class TestBase {
         EXTENT_REPORTS.flush();
         LOGGER.info("Flush Extent Report");
         EXTENT_REPORTS.close();
+        driver.navigate().to(Url);
+        LOGGER.info("open Url ...");
     }
 }
