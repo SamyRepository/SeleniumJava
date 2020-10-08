@@ -2,10 +2,12 @@ package booking.com;
 
 import com.relevantcodes.extentreports.LogStatus;
 import io.qameta.allure.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import ksrtc.TestBase;
 import utils.Report;
 
 import java.util.Arrays;
@@ -13,7 +15,7 @@ import java.util.List;
 
 public class TC006_Booking_Verify_TopHeader extends TestBase {
     private SoftAssertions softly = new SoftAssertions();
-
+    private static Logger LOGGER = LogManager.getLogger(TC006_Booking_Verify_TopHeader.class);
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verifying Top header of Booking homepage ")
@@ -32,10 +34,10 @@ public class TC006_Booking_Verify_TopHeader extends TestBase {
             List<String> expectedTopHeader=Arrays.asList("€","List your Property","Register" ,"Sign in");
             softly.assertThat(expectedTopHeader.containsAll(Arrays.asList(topHeaderItemsArray)));
 
-        } catch (Exception e) {
-            PostConditionWithQuitDriver();
-        } finally {
-            softly.assertAll();
+        } catch (Exception exc) {
+            LOGGER.error("failure reason is" + exc.getMessage());
+            PostConditionWithQuitDriver(exc);
+            Assert.fail("failure reason is" + exc.getMessage());
         }
     }
     @AfterClass
@@ -45,7 +47,7 @@ public class TC006_Booking_Verify_TopHeader extends TestBase {
             PostCondition();
         } catch (AssertionError Error) {
             EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
-            PostConditionWithQuitDriver();
+            PostConditionWithQuitDriver(Error);
         }
     }
 }

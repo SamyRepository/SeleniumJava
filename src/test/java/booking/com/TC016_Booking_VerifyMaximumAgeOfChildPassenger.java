@@ -8,27 +8,24 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import pages.Booking_BannerInfoPage;
 import utils.Report;
-import java.util.List;
 
-public class TC002_Booking_ToVerifyBanner extends TestBase {
+public class TC016_Booking_VerifyMaximumAgeOfChildPassenger extends TestBase {
     private SoftAssertions softly = new SoftAssertions();
-    private static Logger LOGGER = LogManager.getLogger(TC002_Booking_ToVerifyBanner.class);
-    @Test
-    @Severity(SeverityLevel.NORMAL)
-    @Description("To verify banner message")
-    @Story("Banner Message")
-    @Step("Start TC002_Booking_ToVerifyBanner")
+    private static Logger LOGGER = LogManager.getLogger(TC016_Booking_VerifyMaximumAgeOfChildPassenger.class);
 
-    public void getBannerMessage() {
-        EXTENT_REPORTS = Report.Instance("Booking Website");
+    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("To verify maximum allowed age of child passenger ")
+    @Story("Flight Booking")
+    @Step("Start TC016_Booking_VerifyMaximumAgeOfChildPassenger")
+
+    public void verifyMaximumAgeOfChildPassenger() throws InterruptedException {
+        EXTENT_REPORTS = Report.Instance(this.getClass().getName());
         try {
-            CreateExtentReport(this.getClass().getName(), "To verify text of Banner");
-            List<String> bannerMessage = getBookingHomepage().getBannerMessage();
-            System.out.println("Banner message is displayed as:\n" + bannerMessage);
-            softly.assertThat(bannerMessage.contains(Booking_BannerInfoPage.Information.BANNER_MESSAGE.getLabel()));
-            EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Banner Message: " + bannerMessage.toString(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
+            CreateExtentReport(this.getClass().getName(), "Verify maximum age of the child passenger");
+           getBookingHomepage().clickOnFlightLinkGoToFlightBookingPage().selectOneWayJourney().enterSourceOfJourney().enterDestinationOfJourney()
+                    .selectCurrentDate().selectNoOfPassengers().setNumberOfAdultPassenger().setNumberOfChildPassengers().getAllowedAgesOfChildPassengers();
         } catch (Exception exc) {
             LOGGER.error("failure reason is" + exc.getMessage());
             PostConditionWithQuitDriver(exc);

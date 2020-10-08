@@ -1,6 +1,7 @@
 package pages;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import helper.SeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,7 +19,7 @@ public class Booking_CalenderPage extends PageBase {
     @FindBy(xpath = "//input[@class='css-mbm5ok-SearchboxInput' and @placeholder='When?']")
     private WebElement DateOfFlight;
 
-    @FindBy(css = ".DayPicker-Day.DayPicker-Day--today")
+    @FindBy(css = ".DayPicker-Day--today")
     private WebElement CurrentDate;
 
     @FindBy(xpath = "//div[@class='css-1ws0i0d']")
@@ -27,7 +28,7 @@ public class Booking_CalenderPage extends PageBase {
     Booking_CalenderPage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
         WebElement pageHeader = (new WebDriverWait(driver, 5000))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='css-1ws0i0d']")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("DayPicker-wrapper")));
         if (pageHeader.isDisplayed()) {
             System.out.println("Page is loaded");
         } else {
@@ -38,6 +39,7 @@ public class Booking_CalenderPage extends PageBase {
     public Booking_NumberOfPassengers selectCurrentDate() throws InterruptedException {
         Thread.sleep(3000);
         CurrentDate.click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO,"Current date is selected as travel date" );
         return new Booking_NumberOfPassengers(driver, EXTENT_TEST_LOGGER, helper);
     }
     @Override

@@ -1,6 +1,7 @@
 package pages;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import helper.SeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.Report;
 
 public class Booking_FlightAndHotelPage extends PageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(Booking_FlightBookingPage.class);
@@ -18,7 +20,7 @@ public class Booking_FlightAndHotelPage extends PageBase {
     @FindBy(css = ".as-oil__btn-optin.as-js-optin")
     private WebElement AcceptAlert;
 
-    @FindBy(xpath= "//input[@placeholder='Stadt oder Flughafen']")
+    @FindBy(xpath = "//input[@placeholder='Stadt oder Flughafen']")
     private WebElement Source;
 
     @FindBy(xpath = "//input[@placeholder='Stadt, Küste, Region, Insel...']")
@@ -54,36 +56,41 @@ public class Booking_FlightAndHotelPage extends PageBase {
         return FlightAndHotelPageHeader.isDisplayed();
     }
 
-    public Booking_FlightAndHotelPage setSource(){
+    public Booking_FlightAndHotelPage setSource() {
         AcceptAlert.click();
         Source.click();
-        String source="FRA";
+        String source = "FRA";
         Source.sendKeys(source);
         driver.findElement(By.xpath("//div[@data-value='FRA' and @class='optionGroup-select-item']")).click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Source is set as" + source);
         Source.sendKeys(Keys.TAB);
         return this;
     }
 
-    public Booking_FlightAndHotel_CalenderPage setDestination(){
+    public Booking_FlightAndHotel_CalenderPage setDestination() {
         Destination.click();
-        String destination="Mumbai, Indien";
+        String destination = "Mumbai, Indien";
         Destination.sendKeys(destination);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Destination is set as" + destination);
         Destination.sendKeys(Keys.TAB);
-        return new Booking_FlightAndHotel_CalenderPage(driver,EXTENT_TEST_LOGGER,helper);
+        return new Booking_FlightAndHotel_CalenderPage(driver, EXTENT_TEST_LOGGER, helper);
     }
 
-    public Booking_FlightAndHotel_NumberOfPassengers setNumberOfPassengers(){
+    public Booking_FlightAndHotel_NumberOfPassengers setNumberOfPassengers() {
         SetNumberOfPassengersTab.click();
-        return new Booking_FlightAndHotel_NumberOfPassengers(driver,EXTENT_TEST_LOGGER,helper);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "click to set number of passengers");
+        return new Booking_FlightAndHotel_NumberOfPassengers(driver, EXTENT_TEST_LOGGER, helper);
     }
 
-    public Booking_FlightAndHotel_SelectClassOfJourney setClassOfJourney(){
+    public Booking_FlightAndHotel_SelectClassOfJourney setClassOfJourney() {
         SetClass.click();
-        return new Booking_FlightAndHotel_SelectClassOfJourney(driver,EXTENT_TEST_LOGGER,helper);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Click to set class of the journey");
+        return new Booking_FlightAndHotel_SelectClassOfJourney(driver, EXTENT_TEST_LOGGER, helper);
     }
 
-    public Booking_FlightAndHotelSearchResult clickOnSearchButton(){
+    public Booking_FlightAndHotelSearchResult clickOnSearchButton() {
         SearchButton.click();
-        return new Booking_FlightAndHotelSearchResult(driver,EXTENT_TEST_LOGGER,helper);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Click on the search button");
+        return new Booking_FlightAndHotelSearchResult(driver, EXTENT_TEST_LOGGER, helper);
     }
 }

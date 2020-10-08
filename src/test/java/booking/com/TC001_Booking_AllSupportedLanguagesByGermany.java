@@ -2,18 +2,20 @@ package booking.com;
 
 import com.relevantcodes.extentreports.LogStatus;
 import io.qameta.allure.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import pages.Booking_BannerInfoPage;
 import pages.Booking_Homepage;
-import ksrtc.TestBase;
 import utils.Report;
 import java.util.List;
 
 public class TC001_Booking_AllSupportedLanguagesByGermany extends TestBase {
     private SoftAssertions softly = new SoftAssertions();
-
+    private static Logger LOGGER = LogManager.getLogger(TC001_Booking_AllSupportedLanguagesByGermany.class);
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("To click on language dropdown to get all supported languages in Germany")
@@ -30,9 +32,9 @@ public class TC001_Booking_AllSupportedLanguagesByGermany extends TestBase {
             System.out.println("All languages supported by Germany" + langSupportedByGermany.toString());
             EXTENT_TEST_LOGGER.log(LogStatus.PASS, "Languages supported by Germany: " + langSupportedByGermany.toString(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         } catch (Exception exc) {
-            PostConditionWithQuitDriver();
-        } finally {
-            softly.assertAll();
+            LOGGER.error("failure reason is" + exc.getMessage());
+            PostConditionWithQuitDriver(exc);
+            Assert.fail("failure reason is" + exc.getMessage());
         }
     }
     @AfterClass
@@ -41,8 +43,8 @@ public class TC001_Booking_AllSupportedLanguagesByGermany extends TestBase {
             softly.assertAll();
             PostCondition();
         } catch (AssertionError Error) {
-            TestBase.EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), TestBase.EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(TestBase.driver)));
-            PostConditionWithQuitDriver();
+            EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
+            PostConditionWithQuitDriver(Error);
         }
     }
 }

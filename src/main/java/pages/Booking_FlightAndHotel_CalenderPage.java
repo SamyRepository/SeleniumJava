@@ -1,6 +1,7 @@
 package pages;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import helper.SeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -41,12 +42,14 @@ public class Booking_FlightAndHotel_CalenderPage extends PageBase {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         departureDate.click();
         departureDate.sendKeys(Keys.TAB);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Set departure date");
         return this;
     }
 
     public Booking_FlightAndHotel_NumberOfPassengers setReturnDate(){
      WebElement returnDate=driver.findElement(By.xpath("(//div[@class='calendarBoxText lmn-sw-responsive-form-field lmn-sw-tooltip-responsive__text'])[2]"));
      returnDate.sendKeys(Keys.TAB);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Set return date");
      return new Booking_FlightAndHotel_NumberOfPassengers(driver,EXTENT_TEST_LOGGER,helper);
     }
 }

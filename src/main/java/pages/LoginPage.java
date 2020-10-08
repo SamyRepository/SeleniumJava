@@ -125,41 +125,6 @@ public class LoginPage extends PageBase {
         return loginWithOutPasswordApplicationNotification;
     }
 
-    public enum LoginPageLabels {
-        // @formatter:off
-        WELCOME("Welcome to My Porsche"),
-        INVALID_CREDENTIAL("The entered login data is incorrect. Please try again."),
-        WHAT_IS_LOGIN_WITHOUT_PASSWORD("Log in easily without a password: Enter your Porsche ID email address and you will receive an email with a link, via which you can directly access My Porsche. The link will become invalid after 5 minutes for security reasons.");
 
-        // @formatter:on
 
-        private final String label;
-
-        LoginPageLabels(String label) {
-            this.label = label;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-    }
-
-    public enum LoginCredentials {
-        // @formatter:off
-        PORSCHE_ID("messaging.test@porsche.ag"),
-        PASSWORT("dGVzdEFjY291bnQyMDIwIQ=="),
-        PORSCHE_ID2("messaging.test1@porsche.ag"),
-        PASSWORT2("dGVzdEFjY291bnQyMDIwIQ==");
-        // @formatter:on
-
-        private final String label;
-
-        LoginCredentials(String label) {
-            this.label = label;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-    }
 }
