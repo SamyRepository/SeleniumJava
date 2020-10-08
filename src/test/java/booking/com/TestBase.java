@@ -1,4 +1,4 @@
-package ksrtc;
+package booking.com;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -22,6 +22,7 @@ import org.testng.annotations.Parameters;
 import pages.*;
 import utils.Report;
 
+import javax.sound.midi.MidiDevice;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -36,10 +37,8 @@ public class TestBase {
     public static BookMyShow_HomePage bookMyShow_homePage;
     public static Booking_Homepage booking_homepage;
     public static String baseWindowHandle;
-    public static KSRTC_LoginPage ksrtc_loginPage;
-    public static HM_HomePage hm_homePage;
     public static SessionId session_id = null;
-    public  static String  Url;
+    public static String Url;
     private static final Logger LOGGER = LogManager.getLogger(TestBase.class);
 
 
@@ -52,7 +51,7 @@ public class TestBase {
 
     @Step("Select driver to run")
     private RemoteWebDriver setDriver(String browserType, String appURL) throws IOException {
-        Url=appURL;
+        Url = appURL;
         switch (browserType) {
             case "chrome":
                 driver = initChromeDriver(appURL);
@@ -189,17 +188,13 @@ public class TestBase {
 
     protected Booking_Homepage getBookingHomepage() {
         setBookingHomePage();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Homepage is successfully launched", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         return booking_homepage;
     }
 
     protected BookMyShow_HomePage getBookMyShowLaunchPage() {
         setBookMyShowHomePage();
         return bookMyShow_homePage;
-    }
-
-    protected HM_HomePage getHandMHomePage() {
-        setHandMHomePage();
-        return hm_homePage;
     }
 
     public KSRTC_HomePage switchToHomePageAfterClosingCurrentWindow() {
@@ -220,30 +215,35 @@ public class TestBase {
         booking_homepage = new Booking_Homepage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
     }
 
-    public void setHandMHomePage() {
-        hm_homePage = new HM_HomePage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
-    }
-
-
-    public void PostConditionWithQuitDriver() {
+    public void PostConditionWithQuitDriver(AssertionError e) {
         System.out.println("In report creation");
-        EXTENT_TEST_LOGGER.log(LogStatus.FAIL, EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
-        //driver.quit();
-        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Browser is closed");
+        EXTENT_TEST_LOGGER.log(LogStatus.FAIL, EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)), "Test failed due to " + e.getMessage());
+        EXTENT_TEST_LOGGER.log(LogStatus.ERROR, "Test failed due to " + e.getMessage());
         EXTENT_REPORTS.endTest(EXTENT_TEST_LOGGER);
         EXTENT_REPORTS.flush();
         EXTENT_REPORTS.close();
+        driver.navigate().to(Url);
+        LOGGER.info("open Url ...");
+    }
 
+    public void PostConditionWithQuitDriver(Exception e) {
+        System.out.println("In report creation");
+        EXTENT_TEST_LOGGER.log(LogStatus.FAIL, EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)), "Test failed due to " + e.getMessage());
+        EXTENT_REPORTS.endTest(EXTENT_TEST_LOGGER);
+        EXTENT_REPORTS.flush();
+        EXTENT_REPORTS.close();
+        driver.navigate().to(Url);
+        LOGGER.info("open Url ...");
     }
 
     public void PostCondition() {
         LOGGER.info("In report creation");
+        driver.navigate().to(Url);
+        LOGGER.info("open Url ...");
         EXTENT_TEST_LOGGER.log(LogStatus.INFO, EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         EXTENT_REPORTS.endTest(EXTENT_TEST_LOGGER);
         EXTENT_REPORTS.flush();
         LOGGER.info("Flush Extent Report");
         EXTENT_REPORTS.close();
-        driver.navigate().to(Url);
-        LOGGER.info("open Url ...");
     }
 }

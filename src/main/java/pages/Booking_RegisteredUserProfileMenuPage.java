@@ -20,6 +20,9 @@ public class Booking_RegisteredUserProfileMenuPage extends PageBase {
     @FindBy(xpath = "//div[@class='profile-menu__item profile_menu__item--mydashboard']")
     private WebElement MyDashBoardLink;
 
+    @FindBy(xpath = "//input[@value='Sign out']")
+    private WebElement SignOut;
+
 
     Booking_RegisteredUserProfileMenuPage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
@@ -43,6 +46,11 @@ public class Booking_RegisteredUserProfileMenuPage extends PageBase {
     public Booking_RegisteredUserDashBoardPage clickOnDashBoardLinkToGoToDashboardPage() {
         MyDashBoardLink.click();
         return new Booking_RegisteredUserDashBoardPage(driver, EXTENT_TEST_LOGGER, helper);
+    }
+
+    public Booking_Homepage clickOnSignOut(){
+        SignOut.click();
+        return  new Booking_Homepage(driver,EXTENT_TEST_LOGGER,helper);
     }
 
 }

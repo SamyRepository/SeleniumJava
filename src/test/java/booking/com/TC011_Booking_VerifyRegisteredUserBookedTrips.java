@@ -2,16 +2,19 @@ package booking.com;
 
 import com.relevantcodes.extentreports.LogStatus;
 import io.qameta.allure.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import ksrtc.TestBase;
 import utils.Report;
 
 import java.util.List;
 
 public class TC011_Booking_VerifyRegisteredUserBookedTrips extends TestBase {
     SoftAssertions softly = new SoftAssertions();
+    private static Logger LOGGER = LogManager.getLogger(TC011_Booking_VerifyRegisteredUserBookedTrips.class);
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
@@ -23,20 +26,16 @@ public class TC011_Booking_VerifyRegisteredUserBookedTrips extends TestBase {
         EXTENT_REPORTS = Report.Instance(this.getClass().getName());
         try {
             CreateExtentReport(this.getClass().getName(), "Verify all hotels booked in the year 2012");
-            List<String> allBookedTripsList = getBookingHomepage().clickOnSignIn().setUsername().setSignInPassword().selectUserIcon().clickOnBookingLinkOnRegisteredUserIcon().getBookedTripsDetail();
-            System.out.println("All booked hotels for the registered user are:\n" + allBookedTripsList);
-            for (int i = 0; i < allBookedTripsList.size(); i++) {
-                String individualTripDetailIn2012 = allBookedTripsList.get(i);
-                if (individualTripDetailIn2012.contains("2012"))
-                    System.out.println(individualTripDetailIn2012);
-                EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Booked hotel is 2012: " + individualTripDetailIn2012);
-            }
+            getBookingHomepage().clickOnSignIn().setUsername().setSignInPassword().selectUserIcon()
+                    .clickOnBookingLinkOnRegisteredUserIcon().getBookedTripsDetail().selectUserIcon().clickOnSignOut();
+
         } catch (Exception exc) {
-            PostConditionWithQuitDriver();
-        } finally {
-            softly.assertAll();
+            LOGGER.error("failure reason is" + exc.getMessage());
+            PostConditionWithQuitDriver(exc);
+            Assert.fail("failure reason is" + exc.getMessage());
         }
     }
+
     @AfterClass
     void tearDown() {
         try {
@@ -44,7 +43,7 @@ public class TC011_Booking_VerifyRegisteredUserBookedTrips extends TestBase {
             PostCondition();
         } catch (AssertionError Error) {
             EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
-            PostConditionWithQuitDriver();
+            PostConditionWithQuitDriver(Error);
         }
     }
 }

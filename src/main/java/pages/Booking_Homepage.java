@@ -48,13 +48,13 @@ public class Booking_Homepage extends PageBase {
     @FindBy(css = ".user_avatar.user_avatar--circle.user_avatar--normalised.user_avatar--initial.ge-no-yellow-img_border")
     private WebElement UserIcon;
 
-    @FindBy(xpath = "(//div[@class='sign_in_wrapper'])[2]")
+    @FindBy(xpath = "(//*[contains(text(),'Sign in')])[1]")
     private WebElement SignInButton;
 
     @FindBy(xpath = "//li[@class='ia_section active']/ul")
     private List<WebElement> LovedDestination;
 
-    @FindBy(xpath = "(//div[@class='footerconstraint-inner clearfix'])[2]")
+    @FindBy(css = "#footer_top_menu .footer-top-links-list")
     private List<WebElement> FooterTopMenu;
 
     @FindBy(css = "#footer_links")
@@ -63,6 +63,7 @@ public class Booking_Homepage extends PageBase {
 
     public Booking_Homepage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
+
         PageFactory.initElements(driver, this);
     }
 
@@ -76,7 +77,7 @@ public class Booking_Homepage extends PageBase {
     }
 
     private boolean waitUntilPageLoaded() {
-        return driver.findElement(By.xpath("//img[@id='logo_no_globe_new_logo']")).isDisplayed();
+        return helper.isDisplayed("//ul[@class='footer-top-links-list']", 5);
     }
 
     public Booking_Homepage clickOnLanguageSelector() {
@@ -137,10 +138,11 @@ public class Booking_Homepage extends PageBase {
         return helper.getElementsTextValues(FooterTopMenu);
     }
 
-    public List<String> getFooterNavigationLinks(){
-        return helper.getElementsTextValues(FooterNavigationLinks);
+    public Booking_Homepage getFooterNavigationLinks() {
+        List<String> footerNavigationLinksList = helper.getElementsTextValues(FooterNavigationLinks);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Footer navigation links are" + footerNavigationLinksList);
+        return new Booking_Homepage(driver, EXTENT_TEST_LOGGER, helper);
     }
-
 }
 
 

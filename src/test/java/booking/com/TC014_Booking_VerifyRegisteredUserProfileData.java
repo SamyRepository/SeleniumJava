@@ -2,15 +2,19 @@ package booking.com;
 
 import com.relevantcodes.extentreports.LogStatus;
 import io.qameta.allure.*;
-import ksrtc.TestBase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
+import pages.Booking_Homepage;
 import pages.Booking_SettingsPage;
 import utils.Report;
 
 public class TC014_Booking_VerifyRegisteredUserProfileData extends TestBase {
     SoftAssertions softly = new SoftAssertions();
+    private static Logger LOGGER = LogManager.getLogger(TC014_Booking_VerifyRegisteredUserProfileData.class);
     private static Booking_SettingsPage booking_settingsPage;
 
     @Test
@@ -52,19 +56,22 @@ public class TC014_Booking_VerifyRegisteredUserProfileData extends TestBase {
             softly.assertThat(RegisteredUserPhone.equals(Booking_SettingsPage.RegisteredUserProfileDetails.PHONE.getLabel()));
             TestBase.EXTENT_TEST_LOGGER.log(LogStatus.PASS, "Phone of the registered user: " + RegisteredUserPhone);
 
+
+
         } catch (Exception exc) {
-            TestBase.EXTENT_TEST_LOGGER.log(LogStatus.ERROR, exc.getStackTrace().toString(), TestBase.EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(TestBase.driver)));
+            LOGGER.error("failure reason is" + exc.getMessage());
+            PostConditionWithQuitDriver(exc);
+            Assert.fail("failure reason is" + exc.getMessage());
         }
     }
-
     @AfterClass
     void tearDown() {
         try {
             softly.assertAll();
             PostCondition();
         } catch (AssertionError Error) {
-            TestBase.EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), TestBase.EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(TestBase.driver)));
-            PostConditionWithQuitDriver();
+            EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
+            PostConditionWithQuitDriver(Error);
         }
     }
 }

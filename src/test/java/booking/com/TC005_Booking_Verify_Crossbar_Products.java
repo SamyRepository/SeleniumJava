@@ -2,10 +2,12 @@ package booking.com;
 
 import com.relevantcodes.extentreports.LogStatus;
 import io.qameta.allure.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import ksrtc.TestBase;
 import utils.Report;
 
 import java.util.Arrays;
@@ -13,7 +15,7 @@ import java.util.List;
 
 public class TC005_Booking_Verify_Crossbar_Products extends TestBase {
     private SoftAssertions softly = new SoftAssertions();
-
+    private static Logger LOGGER = LogManager.getLogger(TC005_Booking_Verify_Crossbar_Products.class);
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("To verify Crossbar products")
@@ -35,19 +37,19 @@ public class TC005_Booking_Verify_Crossbar_Products extends TestBase {
             //ContainsAll checks for all objects(Collection of objects) while contain checks for only one object
             softly.assertThat(Arrays.asList(crossbarItemsArray).containsAll(expectedItems)).isTrue();
         } catch (Exception exc) {
-            PostConditionWithQuitDriver();
-        } finally {
-            softly.assertAll();
+            LOGGER.error("failure reason is" + exc.getMessage());
+            PostConditionWithQuitDriver(exc);
+            Assert.fail("failure reason is" + exc.getMessage());
         }
     }
-    @AfterClass
+       @AfterClass
     void tearDown() {
         try {
             softly.assertAll();
             PostCondition();
         } catch (AssertionError Error) {
             EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
-            PostConditionWithQuitDriver();
+            PostConditionWithQuitDriver(Error);
         }
     }
 }

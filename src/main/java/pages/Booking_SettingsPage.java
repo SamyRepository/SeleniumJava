@@ -50,10 +50,10 @@ public class Booking_SettingsPage extends PageBase {
         BrowsePic.sendKeys("D:\\IdeaProjects\\Selenium\\digitalCommunication\\src\\main\\resources\\Anand2.JPG");
         return this;
     }
-    public Booking_SettingsPage saveProfilePic() {
+    public Booking_Homepage saveProfilePic() {
         SaveNewPic.click();
         helper.waitUntilElementNotVisible(By.xpath("//div[@class='user-avatar-upload']"));
-        return this;
+        return new Booking_Homepage(driver,EXTENT_TEST_LOGGER,helper);
     }
     public String getRegisteredUserTitle() {
         return Title.getAttribute("value");
@@ -67,6 +67,7 @@ public class Booking_SettingsPage extends PageBase {
     public String getRegisteredUserEmail() {
         return Email.getAttribute("value");
     }
+
     public String getRegisteredUserPhone() {
         return PhoneNumber.getAttribute("value");
     }

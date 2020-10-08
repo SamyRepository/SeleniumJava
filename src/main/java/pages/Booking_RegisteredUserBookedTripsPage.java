@@ -1,11 +1,13 @@
 package pages;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import helper.SeleniumHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.Report;
 
 import java.util.List;
 
@@ -50,9 +52,18 @@ public class Booking_RegisteredUserBookedTripsPage extends PageBase {
         return this;
     }
 
-    public List<String> getBookedTripsDetail() {
-        return helper.getElementsTextValues(BookedTripDetailsContainer);
+    public Booking_Homepage getBookedTripsDetail() {
+        List<String> bookedTripDetailsList=helper.getElementsTextValues(BookedTripDetailsContainer);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "All booked hotels for the registered user are:\n" + bookedTripDetailsList);
+        for (int i = 0; i < bookedTripDetailsList.size(); i++) {
+            String individualTripDetailIn2012 = bookedTripDetailsList.get(i);
+            if (individualTripDetailIn2012.contains("2012"))
+                System.out.println(individualTripDetailIn2012);
+            EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Booked hotel is 2012: " + individualTripDetailIn2012);
+        }
+        return new Booking_Homepage(driver,EXTENT_TEST_LOGGER,helper);
     }
+
 
     public Booking_RegisteredUserBookedTripsPage clickOnDropdownOfHotelModerno() {
         closeAlert.click();
@@ -65,8 +76,10 @@ public class Booking_RegisteredUserBookedTripsPage extends PageBase {
         return new Booking_HotelModernoRebookPage(driver, EXTENT_TEST_LOGGER, helper);
     }
 
-    public String getHotelModernoPreviousPrice() {
-        return helper.ElementGetText(HotelModernoPreviousPrice);
+    public Booking_Homepage getHotelModernoPreviousPrice() {
+        String previousPriceOfHotelModerno = helper.ElementGetText(HotelModernoPreviousPrice);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Hotel Moderno is previously booked at price:" + previousPriceOfHotelModerno);
+        return new Booking_Homepage(driver, EXTENT_TEST_LOGGER, helper);
     }
 
 }

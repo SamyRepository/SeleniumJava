@@ -15,3 +15,4 @@ src/main/java/pages/HM_WomenFashionMenuList.java
 src/main/java/pages/HM_WomenJacketFashionPage.java
 src/main/resources/chromedriver-82.exe
 src/test/java/hm/
+/logs/

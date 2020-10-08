@@ -1,6 +1,7 @@
 package pages;
 
 import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import helper.SeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -32,7 +33,7 @@ public class Booking_FlightAndHotel_NumberOfPassengers extends PageBase {
     private WebElement AddRoom;
 
     @FindBy(xpath = "(//div[@class='childrenAgeResp'])[1]")
-            private WebElement FirstRoomChildAge;
+    private WebElement FirstRoomChildAge;
 
     @FindBy(xpath = "(//div[@class='childrenAgeResp'])[2]")
     private WebElement SecondRoomChildAge;
@@ -56,35 +57,42 @@ public class Booking_FlightAndHotel_NumberOfPassengers extends PageBase {
         return driver.findElement(By.cssSelector(".roomTitle")).isDisplayed();
     }
 
-    public Booking_FlightAndHotel_NumberOfPassengers setNumberOfPassengers(){
+    public Booking_FlightAndHotel_NumberOfPassengers setNumberOfPassengers() {
         NumberOfPassengersTab.click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Set number of passengers");
         return this;
     }
 
     public Booking_FlightAndHotel_NumberOfPassengers increaseNumberOfAdults() {
         IncreaseNumberOfAdults.click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Increase number of adult passenger by one");
         return this;
     }
 
     public Booking_FlightAndHotel_NumberOfPassengers increaseNumberOfChildren() {
         IncreaseNumberOfChildren.click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Increase number of child passenger by one");
         return this;
     }
 
     public Booking_FlightAndHotel_NumberOfPassengers increaseNumberOfRooms() {
         AddRoom.click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Increase number of rooms");
         return this;
     }
 
-    public Booking_FlightAndHotel_NumberOfPassengers setChildAgeFirstRoom(){
+    public Booking_FlightAndHotel_NumberOfPassengers setChildAgeFirstRoom() {
         FirstRoomChildAge.click();
         driver.findElement(By.xpath("(//div[@class='childrenAgesResp-select']/select/option[5])[1]")).click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Set age of child for the first room");
         return this;
     }
-    public Booking_FlightAndHotel_SelectClassOfJourney setChildAgeSecondRoom(){
+
+    public Booking_FlightAndHotel_SelectClassOfJourney setChildAgeSecondRoom() {
         SecondRoomChildAge.click();
         driver.findElement(By.xpath("(//div[@class='childrenAgesResp-select']/select)[2]/option[8]")).click();
-        return new Booking_FlightAndHotel_SelectClassOfJourney(driver,EXTENT_TEST_LOGGER,helper);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Set age of child for the second room");
+        return new Booking_FlightAndHotel_SelectClassOfJourney(driver, EXTENT_TEST_LOGGER, helper);
     }
 
 }

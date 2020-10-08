@@ -80,19 +80,20 @@ public class SeleniumHelper {
 
 
     }
-   public List<WebElement> getElementsByXpath(String locator){
-        return  driver.findElements(By.xpath(locator));
-   }
+
+    public List<WebElement> getElementsByXpath(String locator) {
+        return driver.findElements(By.xpath(locator));
+    }
 
 
-   public List<String> getElementsTextValues(final List<WebElement> Elements){
-       final List<String> elementValues=new ArrayList<String>();
-       Elements.stream()
-               .forEach(element-> {
-                   elementValues.add(element.getText());
-               });
-               return elementValues;
-   }
+    public List<String> getElementsTextValues(final List<WebElement> Elements) {
+        final List<String> elementValues = new ArrayList<String>();
+        Elements.stream()
+                .forEach(element -> {
+                    elementValues.add(element.getText());
+                });
+        return elementValues;
+    }
 
 
     public String switchToSecondWindow() {
@@ -145,13 +146,12 @@ public class SeleniumHelper {
     }
 
     public void moveToElement(final WebElement element) {
-            new Actions(driver).moveToElement(element).perform();
+        new Actions(driver).moveToElement(element).perform();
     }
 
     public void moveToElement(final By by) {
         moveToElement(driver.findElement(by));
     }
-
 
 
     public void scrollElementToVerticalCenter(final WebElement element) throws InterruptedException {
@@ -175,6 +175,19 @@ public class SeleniumHelper {
             return false;
         }
     }
+
+    public boolean isDisplayed(final String Locator, final long timeOutInSeconds) {
+        try {
+            new WebDriverWait(driver, timeOutInSeconds).pollingEvery(200, TimeUnit.MILLISECONDS)
+                    .ignoring(StaleElementReferenceException.class, NoSuchElementException.class)
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(Locator))));
+            return true;
+        } catch (TimeoutException e) {
+
+            return false;
+        }
+    }
+
 
 
     public void waitUntilElementNotVisible(final By by) {
@@ -228,6 +241,7 @@ public class SeleniumHelper {
         return waitUntil(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
+
     public WebElement waitUntilElementToBeClickable(final WebElement we) {
         return waitUntil(ExpectedConditions.elementToBeClickable(we));
     }
@@ -250,8 +264,29 @@ public class SeleniumHelper {
         waitUntil(ExpectedConditions.numberOfElementsToBe(locator, count));
     }
 
-    public void clickElementByIndex(final List<WebElement> elementList,final int index){
+    public void clickElementByIndex(final List<WebElement> elementList, final int index) {
         elementList.get(index).click();
     }
+
+    public void click(final WebElement element) {
+        newWait().ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(WebDriverException.class)
+                .ignoring(ElementNotVisibleException.class)
+                .ignoring(StaleElementReferenceException.class)
+                .until(ExpectedConditions.and(ExpectedConditions.elementToBeClickable(element),
+                        ExpectedConditions.visibilityOf(element)));
+        element.click();
+    }
+
+    public WebElement waitUntilElementVisible(final WebElement webElement) {
+        return waitUntil(ExpectedConditions.visibilityOf(webElement));
+    }
+
+    public void clearAutoFillInputContainer(final WebElement element) {
+        waitUntilElementVisible(element);
+        element.sendKeys(Keys.BACK_SPACE);
+    }
+
 
 }

@@ -2,10 +2,12 @@ package booking.com;
 
 import com.relevantcodes.extentreports.LogStatus;
 import io.qameta.allure.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import ksrtc.TestBase;
 import utils.Report;
 
 import java.util.Arrays;
@@ -13,6 +15,7 @@ import java.util.List;
 
 public class TC008_Booking_VerifyFooter_DestinationWeLove extends TestBase {
     SoftAssertions softly = new SoftAssertions();
+    private static Logger LOGGER = LogManager.getLogger(TC008_Booking_VerifyFooter_DestinationWeLove.class);
 
     @Test
     @Story("Booking Homepage")
@@ -38,13 +41,12 @@ public class TC008_Booking_VerifyFooter_DestinationWeLove extends TestBase {
                     "Guernsey", "61 properties", "Texel", "413 properties", "Cornwall", "5,274 properties");
             softly.assertThat(expectedDestinationsWeLoveItems.containsAll(Arrays.asList(destinationWeLoveItemsArray)));
 
-        } catch (Exception e) {
-            PostConditionWithQuitDriver();
-        } finally {
-            softly.assertAll();
+        } catch (Exception exc) {
+            LOGGER.error("failure reason is" + exc.getMessage());
+            PostConditionWithQuitDriver(exc);
+            Assert.fail("failure reason is" + exc.getMessage());
         }
     }
-
     @AfterClass
     void tearDown() {
         try {
@@ -52,7 +54,7 @@ public class TC008_Booking_VerifyFooter_DestinationWeLove extends TestBase {
             PostCondition();
         } catch (AssertionError Error) {
             EXTENT_TEST_LOGGER.log(LogStatus.ERROR, Error.getLocalizedMessage(), EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
-            PostConditionWithQuitDriver();
+            PostConditionWithQuitDriver(Error);
         }
     }
 }
