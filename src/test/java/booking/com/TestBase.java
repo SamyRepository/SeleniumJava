@@ -102,7 +102,17 @@ public class TestBase {
             System.setProperty("webdriver.chrome.driver", driverPath
                     + "chromedriver.exe");
 
-            ChromeOptions options = new ChromeOptions();
+            final ChromeOptions options = new ChromeOptions();
+            options.addArguments(
+                    "--window-size=1920,1080",
+                    "--no-default-browser-check",
+                    "--no-first-run",
+                    "--disable-default-apps",
+                    "--disable-popup-blocking",
+                    "--disable-translate",
+                    "--disable-device-discovery-notifications");
+
+            //ChromeOptions options = new ChromeOptions();
             DesiredCapabilities capabilities = DesiredCapabilities.chrome();
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             LoggingPreferences logPrefs = new LoggingPreferences();
