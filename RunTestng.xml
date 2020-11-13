@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Digital Communication POC on : Chrome" preserve-order="true">
-
     <listeners>
         <listener class-name="utils.TestNGListenerAdapter"/>
     </listeners>
 
-    <test name="Chrome:suite1_test1_results" preserve-order="true">
+    <test name="Booking Website">
         <parameter name="browserType" value="chrome"/>
-<!--        <parameter name="appURL" value="https://www.booking.com"/>-->
-        <parameter name="appURL" value="https://www.bahn.de/p/view/index.shtml"/>
-
+        <parameter name="appURL" value="https://www.booking.com"/>
         <classes>
-            <class name="DeutschBahn.com.TC001_DB_VerifyBookingTickets"/>
-            <!--<class name="booking.com.TC001_Booking_AllSupportedLanguagesByGermany"/>
+            <class name="booking.com.TC001_Booking_AllSupportedLanguagesByGermany"/>
             <class name="booking.com.TC002_Booking_ToVerifyBanner"/>
             <class name="booking.com.TC003_Booking_OneWayFlightBooking"/>
             <class name="booking.com.TC005_Booking_Verify_Crossbar_Products"/>
@@ -28,10 +24,19 @@
             <class name="booking.com.TC014_Booking_VerifyRegisteredUserProfileData"/>
             <class name="booking.com.TC015_Booking_VerifyClassesOfFlightJourney"/>
             <class name="booking.com.TC016_Booking_VerifyMaximumAgeOfChildPassenger"/>
-            <class name="booking.com.TC017_Booking_VerifyCostOfChildPassengerTicket"/>-->
+            <class name="booking.com.TC017_Booking_VerifyCostOfChildPassengerTicket"/>
+            <class name="booking.com.TC018_Booking_ToSelectSpecificPageOfSearchResult"/>
+            <class name="booking.com.TC019_Booking_VerifyDirectFlightWithoutTransit"/>
         </classes>
     </test>
 
+    <test name="DeutschBahn Website">
+        <parameter name="browserType" value="chrome"/>
+        <parameter name="appURL" value="https://www.bahn.de/p/view/index.shtml"/>
+        <classes>
+            <class name="DeutschBahn.com.TC001_DB_VerifyBookingTickets"/>
+        </classes>
+    </test>
 </suite>
 
 
