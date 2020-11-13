@@ -30,7 +30,7 @@ public class Booking_Homepage extends PageBase {
     @FindBy(xpath = "//a[@class='bui-link bui-link--primary']")
     private WebElement BannerReadMoreLink;
 
-    @FindBy(xpath = "//a[@class='xpb__link' and @data-decider-header='flights']")
+    @FindBy(xpath = "//a[@data-decider-header='flights']")
     private WebElement FlightLink;
 
     @FindBy(xpath = "//*[contains(text(), 'Flight + Hotel')]")
@@ -45,7 +45,7 @@ public class Booking_Homepage extends PageBase {
     @FindBy(xpath = "//*[contains(text(), 'Register')]")
     private WebElement RegisterButton;
 
-    @FindBy(css = ".user_avatar.user_avatar--circle.user_avatar--normalised.user_avatar--initial.ge-no-yellow-img_border")
+    @FindBy(css = "#profile-menu-trigger--content")
     private WebElement UserIcon;
 
     @FindBy(xpath = "(//*[contains(text(),'Sign in')])[1]")
@@ -63,7 +63,6 @@ public class Booking_Homepage extends PageBase {
 
     public Booking_Homepage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
-
         PageFactory.initElements(driver, this);
     }
 
@@ -120,7 +119,7 @@ public class Booking_Homepage extends PageBase {
         return helper.getElementsTextValues(TopHeader);
     }
 
-    public Booking_RegisteredUserProfileMenuPage selectUserIcon() {
+    public Booking_RegisteredUserProfileMenuPage selectUserIcon() throws InterruptedException {
         UserIcon.click();
         return new Booking_RegisteredUserProfileMenuPage(driver, EXTENT_TEST_LOGGER, helper);
     }

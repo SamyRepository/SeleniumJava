@@ -23,10 +23,10 @@ public class Booking_FlightBookingPage extends PageBase {
     @FindBy(xpath = "//div[@class='css-mxqkpy-radio-input']")
     private WebElement OneWayJourneyLink;
 
-    /* @FindBy(xpath = "//div[@class='bui-f-font-body css-lilgi0']")
-     private WebElement SourceTab;
- */
-    @FindBy(css = ".css-1wkb7ih-inputContainer .css-1wz0cgy")
+   /* @FindBy(css = ".css-1wkb7ih-inputContainer .css-1wz0cgy")
+    private WebElement SourceInputContainer;
+    */
+    @FindBy(xpath = "//*[contains(text(), 'Frankfurt/Main')]")
     private WebElement SourceInputContainer;
 
     @FindBy(xpath = "//input[@class='css-5ttzzv' and @placeholder='Where else?']")
@@ -64,18 +64,20 @@ public class Booking_FlightBookingPage extends PageBase {
 
     public Booking_FlightBookingPage selectOneWayJourney() {
         OneWayJourneyLink.click();
-        EXTENT_TEST_LOGGER.log(LogStatus.INFO,"One-way journey option is selected");
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "One-way journey option is selected");
         return this;
     }
 
-    public Booking_FlightBookingPage enterSourceOfJourney() {
-        String source = "MAD";
+    public Booking_FlightBookingPage enterSourceOfJourney() throws InterruptedException {
+        String source = "FRA";
         helper.click(SourceInputContainer);
         helper.clearAutoFillInputContainer(SourceInputWithDefaultValue);
         SourceInput.sendKeys(source);
+        List<WebElement> sourceOptions=driver.findElements(By.xpath("//ul[@class='css-1t69qnr']/li"));
+        helper.selectChildElementSearchByText(sourceOptions,"FRA Frankfurt Airport");
         //Dynamic Xpath for source and destination using concatenation of strings
-        driver.findElement(By.xpath("//*[contains(text(),'" + source + "')]")).click();
-        EXTENT_TEST_LOGGER.log(LogStatus.INFO,"Source of Journey is selected as" +source);
+        //driver.findElement(By.xpath("//*[contains(text(),'" + source + "')]")).click();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Source of Journey is selected as: " + source);
         //SourceInput.sendKeys(Keys.TAB);
         return this;
     }
@@ -87,7 +89,7 @@ public class Booking_FlightBookingPage extends PageBase {
         String destination = "CDG";
         Destination.sendKeys(destination);
         driver.findElement(By.xpath("//*[contains(text(),'" + destination + "')]")).click();
-        EXTENT_TEST_LOGGER.log(LogStatus.INFO,"Destination of Journey is selected as" +destination);
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Destination of Journey is selected as: " + destination);
         return new Booking_CalenderPage(driver, EXTENT_TEST_LOGGER, helper);
     }
 

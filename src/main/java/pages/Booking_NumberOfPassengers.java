@@ -20,8 +20,14 @@ import java.util.List;
 public class Booking_NumberOfPassengers extends PageBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(Booking_Homepage.class);
 
-    @FindBy(xpath = "//input[@class='css-7b3jr6-SearchboxInput' and @value='1 adult']")
+   /* @FindBy(xpath = "//input[@class='css-7b3jr6-SearchboxInput' and @value='1 adult']")
     private WebElement NoOfPassengersTab;
+    */
+   /* @FindBy(xpath = "//*[contains(text(), '1 adult')]")
+    private WebElement NoOfPassengersTab;
+*/
+   @FindBy(xpath = "//div[@class='css-vvcyi3']//div[@class='bui-popover__wrapper bui-popover__wrapper--block']")
+   private WebElement NoOfPassengersTab;
 
     @FindBy(xpath = "//button[@class='css-bzt01u wide']")
     private WebElement SearchButton;
@@ -38,6 +44,7 @@ public class Booking_NumberOfPassengers extends PageBase {
     @FindBy(xpath = "(//select[@class='css-1k0jlfl'])[2]")
     private WebElement ChildAgeTab;
 
+
     Booking_NumberOfPassengers(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
         PageFactory.initElements(driver, this);
@@ -52,6 +59,7 @@ public class Booking_NumberOfPassengers extends PageBase {
     }
 
     private boolean waitUntilPageLoaded() {
+
         return DoneNoOfPassengers.isDisplayed();
     }
 
@@ -90,10 +98,9 @@ public class Booking_NumberOfPassengers extends PageBase {
 
     }
 
-    public Booking_NumberOfPassengers setChildAge() {
+    public Booking_NumberOfPassengers setChildAge(String PassangerAge) {
         ChildAgeTab.click();
-//        driver.findElement(By.xpath("//select[@class='css-1k0jlfl']/option[11]")).click();
-        driver.findElement(By.xpath(SetAgeOfChildPassenger.SET_AGE_OF_CHILD_PASSENGER_0.getLabel())).click();
+        driver.findElement(By.xpath(PassangerAge)).click();
         EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Set age of the child passenger 0", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         //above is dynamic
         helper.waitUntilElementToBeClickable(DoneNoOfPassengers);
@@ -103,9 +110,11 @@ public class Booking_NumberOfPassengers extends PageBase {
 
     public Booking_OneWayBookingResultPage clickOnSearchButton() {
         SearchButton.click();
+        helper.waitUntilElementNotVisible(By.xpath("//div[contains(text(), 'Look out for flexible ticket options')]"));
         EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Search button is clicked");
         return new Booking_OneWayBookingResultPage(driver,EXTENT_TEST_LOGGER,helper);
     }
+
     public enum SetAgeOfChildPassenger {
         SET_AGE_OF_CHILD_PASSENGER_0("(//select[@class='css-1k0jlfl'])[2]/option[2]"),
         SET_AGE_OF_CHILD_PASSENGER_1("(//select[@class='css-1k0jlfl'])[2]/option[3]"),

@@ -7,12 +7,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Booking_RegisteredUserDashBoardPage extends PageBase {
 
-    @FindBy(xpath = "//*[contains(text(), 'Edit your profile')]")
-            private WebElement EditYourProfile;
+public class Booking_AccountSettingPage extends PageBase {
 
-    Booking_RegisteredUserDashBoardPage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
+    @FindBy(xpath="//*[contains(text(), 'Persönliche Angaben ändern')]")
+    private WebElement ChangePersonalData;
+
+    Booking_AccountSettingPage(RemoteWebDriver driver, ExtentTest EXTENT_TEST_LOGGER, SeleniumHelper helper) {
         super(driver, EXTENT_TEST_LOGGER, helper);
         PageFactory.initElements(driver,this);
     }
@@ -21,9 +22,9 @@ public class Booking_RegisteredUserDashBoardPage extends PageBase {
     public boolean verifyPageIsLoaded() throws Exception {
         return false;
     }
-
-    public Booking_SettingsPage clickEditYourProfileToGoToSettingsPage(){
-        EditYourProfile.click();
+     public Booking_SettingsPage clickOnChangePersonalDetails(){
+        ChangePersonalData.click();
         return new Booking_SettingsPage(driver,EXTENT_TEST_LOGGER,helper);
-    }
+     }
+
 }

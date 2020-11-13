@@ -63,11 +63,21 @@ public class SeleniumHelper {
     }
 
     public WebElement findChildElementSearchByText(List<WebElement> MainMenu, String value) {
-        return MainMenu.stream().filter(webElement -> webElement.getText().contains(value))
+        return MainMenu.stream().filter(webElement -> webElement.getText().contentEquals(value))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException(
                         String.format("Could not find menu item with id'%s'", value)));
 
+    }
+
+    public void selectChildElementSearchByText(List<WebElement> MainMenu, String value) {
+        try {
+            WebElement element = MainMenu.stream().filter(webElement -> webElement.getText().contains(value))
+                    .findFirst().get();
+            element.click();
+        } catch (NoSuchElementException Exc) {
+            String.format("Could not find menu item with id'%s'", value);
+        }
     }
 
 
@@ -80,6 +90,11 @@ public class SeleniumHelper {
 
 
     }
+
+    public String getElementAttributeValue(final WebElement MainMenu, String AttributeName) {
+        return MainMenu.getAttribute(AttributeName);
+    }
+
 
     public List<WebElement> getElementsByXpath(String locator) {
         return driver.findElements(By.xpath(locator));
@@ -187,7 +202,6 @@ public class SeleniumHelper {
             return false;
         }
     }
-
 
 
     public void waitUntilElementNotVisible(final By by) {

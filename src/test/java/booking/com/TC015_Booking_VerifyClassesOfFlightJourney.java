@@ -30,7 +30,7 @@ public class TC015_Booking_VerifyClassesOfFlightJourney extends TestBase {
             List<String> classesOfJourney = getBookingHomepage().clickOnFlightLinkGoToFlightBookingPage().getClassesOfFlightTickets();
             String[] classesOfJourneyArray = classesOfJourney.get(0).split("\\r?\\n");
             EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Different classes of flight tickets are:" + classesOfJourney);
-            List<String> ExpectedClassesOfJourney = Arrays.asList("Economy1", "Premium economy", "Business", "First class");
+            List<String> ExpectedClassesOfJourney = Arrays.asList("Economy", "Premium economy", "Business", "First class");
             softly.assertThat(Arrays.asList(classesOfJourneyArray).equals(ExpectedClassesOfJourney)).isTrue();
 
         } catch (Exception exc) {

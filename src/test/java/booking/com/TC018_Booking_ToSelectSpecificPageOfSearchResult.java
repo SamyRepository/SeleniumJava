@@ -8,32 +8,32 @@ import org.assertj.core.api.SoftAssertions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
+import pages.Booking_OneWayBookingResultPage;
 import utils.Report;
 
-public class TC013_Booking_ChangeProfilePictureOfRegisteredUser extends TestBase {
+public class TC018_Booking_ToSelectSpecificPageOfSearchResult extends TestBase {
     SoftAssertions softly = new SoftAssertions();
-    private static Logger LOGGER = LogManager.getLogger(TC013_Booking_ChangeProfilePictureOfRegisteredUser.class);
+    private static Logger LOGGER = LogManager.getLogger(TC017_Booking_VerifyCostOfChildPassengerTicket.class);
 
     @Test
-    @Severity(SeverityLevel.NORMAL)
-    @Story("My Profile")
-    @Description("To change the profile picture of registered user")
-    @Step("To run TC013_Booking_ChangeProfilePictureOfRegisteredUser")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("To go to any page of the search result ")
+    @Story("Flight Booking Result")
+    @Step("Start TC018_Booking_ToSelectSpecificPageOfSearchResult")
 
-    public void changeUserProfilePic() {
+    public void toGoToSpecificPageOfSearchResult() throws InterruptedException {
         EXTENT_REPORTS = Report.Instance(this.getClass().getName());
         try {
-            CreateExtentReport(this.getClass().getName(), "Change profile picture of the registered user");
-            getBookingHomepage().clickOnSignIn().setUsername().setSignInPassword().selectUserIcon()
-                    .clickOnDashBoardLinkToGoToDashboardPage().clickEditYourProfileToGoToSettingsPage().uploadNewProfilePic().saveProfilePic().selectUserIcon().clickOnSignOut();
-            EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Profile picture of the registered user is changed", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
-
+            CreateExtentReport(this.getClass().getName(), "To open any specific page of the search result");
+            getBookingHomepage().clickOnFlightLinkGoToFlightBookingPage().selectOneWayJourney().enterSourceOfJourney()
+                    .enterDestinationOfJourney().selectCurrentDate().clickOnSearchButton().clickOnParticularPage(Booking_OneWayBookingResultPage.GetPageOfSearchResult.PAGE2);
         } catch (Exception exc) {
             LOGGER.error("failure reason is" + exc.getMessage());
             PostConditionWithQuitDriver(exc);
             Assert.fail("failure reason is" + exc.getMessage());
         }
     }
+
     @AfterClass
     void tearDown() {
         try {

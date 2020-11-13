@@ -13,7 +13,7 @@ public class Booking_SettingsPage extends PageBase {
     @FindBy(xpath = "//*[contains(text(), 'Change photo')]")
     private WebElement ChangeYourPicButton;
 
-    @FindBy(css = "#avatar-upload-file")
+    @FindBy(xpath = "//div[@class='iux-file-upload']")
     private WebElement BrowsePic;
 
     @FindBy(xpath = "//span[@class='btn btn-primary submit-avatar']")
@@ -46,6 +46,8 @@ public class Booking_SettingsPage extends PageBase {
         ChangeYourPicButton.click();
         return this;
     }
+
+
     public Booking_SettingsPage uploadNewProfilePic() {
         BrowsePic.sendKeys("D:\\IdeaProjects\\Selenium\\digitalCommunication\\src\\main\\resources\\Anand2.JPG");
         return this;
@@ -55,6 +57,7 @@ public class Booking_SettingsPage extends PageBase {
         helper.waitUntilElementNotVisible(By.xpath("//div[@class='user-avatar-upload']"));
         return new Booking_Homepage(driver,EXTENT_TEST_LOGGER,helper);
     }
+
     public String getRegisteredUserTitle() {
         return Title.getAttribute("value");
     }

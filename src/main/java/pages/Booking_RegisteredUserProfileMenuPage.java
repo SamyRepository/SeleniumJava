@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Booking_RegisteredUserProfileMenuPage extends PageBase {
 
-    @FindBy(css = ".fly-dropdown.fly-dropdown--profile-menu.fly-dropdown_bottom.fly-dropdown_arrow-right")
+    @FindBy(xpath = "//div[@class='bui-dropdown__content']")
     private List<WebElement> RegisteredUserProfileMenu;
 
     @FindBy(xpath = "//div[@class='profile-menu__item profile_menu__item--myreservations']")
@@ -48,9 +48,9 @@ public class Booking_RegisteredUserProfileMenuPage extends PageBase {
         return new Booking_RegisteredUserDashBoardPage(driver, EXTENT_TEST_LOGGER, helper);
     }
 
-    public Booking_Homepage clickOnSignOut(){
+    public Booking_Homepage clickOnSignOut() {
         SignOut.click();
-        return  new Booking_Homepage(driver,EXTENT_TEST_LOGGER,helper);
+        return new Booking_Homepage(driver, EXTENT_TEST_LOGGER, helper);
     }
 
 }

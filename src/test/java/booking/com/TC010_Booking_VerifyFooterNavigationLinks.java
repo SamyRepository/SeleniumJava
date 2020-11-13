@@ -26,7 +26,8 @@ public class TC010_Booking_VerifyFooterNavigationLinks extends TestBase {
         EXTENT_REPORTS = Report.Instance(this.getClass().getName());
         try {
             CreateExtentReport(this.getClass().getName(), "Verify footer top menu items of Booking homepage");
-            getBookingHomepage().getFooterNavigationLinks().selectUserIcon().clickOnSignOut();
+            getBookingHomepage().getFooterNavigationLinks();
+                    //selectUserIcon().clickOnSignOut();
         } catch (Exception exc) {
             LOGGER.error("failure reason is" + exc.getMessage());
             PostConditionWithQuitDriver(exc);

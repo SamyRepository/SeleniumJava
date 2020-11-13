@@ -35,10 +35,11 @@ public class TestBase {
     public static LoginPage loginPage;
     public static KSRTC_HomePage ksrtc_homePage;
     public static BookMyShow_HomePage bookMyShow_homePage;
+    public static DB_HomePage db_homepage;
     public static Booking_Homepage booking_homepage;
     public static String baseWindowHandle;
     public static SessionId session_id = null;
-    public static String Url;
+    public  String Url;
     private static final Logger LOGGER = LogManager.getLogger(TestBase.class);
 
 
@@ -51,7 +52,7 @@ public class TestBase {
 
     @Step("Select driver to run")
     private RemoteWebDriver setDriver(String browserType, String appURL) throws IOException {
-        Url = appURL;
+
         switch (browserType) {
             case "chrome":
                 driver = initChromeDriver(appURL);
@@ -162,14 +163,14 @@ public class TestBase {
     @BeforeClass
     @Parameters({"browserType", "appURL"})
     public void initializeTestBaseSetup(String browserType, String appURL) {
-
+        Url = appURL;
         try {
 
-            if (driver != null) {
+            if (driver != null ) {
                 session_id = driver.getSessionId();
                 baseWindowHandle = driver.getWindowHandle();
             }
-            if (session_id == null) {
+            if (session_id == null || !driver.getCurrentUrl().contentEquals(Url) ) {
                 System.out.println("Creating Driver");
                 setDriver(browserType, appURL);
                 baseWindowHandle = driver.getWindowHandle();
@@ -202,6 +203,13 @@ public class TestBase {
         return booking_homepage;
     }
 
+    protected DB_HomePage getDBHomepage() {
+        setDBHomePage();
+        EXTENT_TEST_LOGGER.log(LogStatus.INFO, "Homepage is successfully launched", EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
+        return db_homepage;
+    }
+
+
     protected BookMyShow_HomePage getBookMyShowLaunchPage() {
         setBookMyShowHomePage();
         return bookMyShow_homePage;
@@ -225,6 +233,10 @@ public class TestBase {
         booking_homepage = new Booking_Homepage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
     }
 
+    public void setDBHomePage() {
+        db_homepage = new DB_HomePage(driver, EXTENT_TEST_LOGGER, new SeleniumHelper(driver));
+    }
+
     public void PostConditionWithQuitDriver(AssertionError e) {
         System.out.println("In report creation");
         EXTENT_TEST_LOGGER.log(LogStatus.FAIL, EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)), "Test failed due to " + e.getMessage());
@@ -242,13 +254,13 @@ public class TestBase {
         EXTENT_REPORTS.endTest(EXTENT_TEST_LOGGER);
         EXTENT_REPORTS.flush();
         EXTENT_REPORTS.close();
-        driver.navigate().to(Url);
+        //driver.navigate().to(Url);
         LOGGER.info("open Url ...");
     }
 
     public void PostCondition() {
         LOGGER.info("In report creation");
-        driver.navigate().to(Url);
+        //driver.navigate().to(Url);
         LOGGER.info("open Url ...");
         EXTENT_TEST_LOGGER.log(LogStatus.INFO, EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         EXTENT_REPORTS.endTest(EXTENT_TEST_LOGGER);
