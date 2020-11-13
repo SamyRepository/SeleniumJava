@@ -163,14 +163,15 @@ public class TestBase {
     @BeforeClass
     @Parameters({"browserType", "appURL"})
     public void initializeTestBaseSetup(String browserType, String appURL) {
-        Url = appURL;
+
         try {
 
             if (driver != null ) {
+                Url = appURL;
                 session_id = driver.getSessionId();
                 baseWindowHandle = driver.getWindowHandle();
             }
-            if (session_id == null || !driver.getCurrentUrl().contentEquals(Url) ) {
+            if (session_id == null || !driver.getCurrentUrl().contains(Url) ) {
                 System.out.println("Creating Driver");
                 setDriver(browserType, appURL);
                 baseWindowHandle = driver.getWindowHandle();
@@ -254,13 +255,13 @@ public class TestBase {
         EXTENT_REPORTS.endTest(EXTENT_TEST_LOGGER);
         EXTENT_REPORTS.flush();
         EXTENT_REPORTS.close();
-        //driver.navigate().to(Url);
+        driver.navigate().to(Url);
         LOGGER.info("open Url ...");
     }
 
     public void PostCondition() {
         LOGGER.info("In report creation");
-        //driver.navigate().to(Url);
+        driver.navigate().to(Url);
         LOGGER.info("open Url ...");
         EXTENT_TEST_LOGGER.log(LogStatus.INFO, EXTENT_TEST_LOGGER.addScreenCapture(Report.CaptureScreen(driver)));
         EXTENT_REPORTS.endTest(EXTENT_TEST_LOGGER);
